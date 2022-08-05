@@ -28,7 +28,7 @@ return axios.get(url,{
 };
 
 
-export const getCoinById = (coinId) =>{
+export const getCoinById = (coinId : string | undefined) =>{
     const url = `${BASE_URL}/${coinId}?localization=false`;
     
     return axios.get(url,{
