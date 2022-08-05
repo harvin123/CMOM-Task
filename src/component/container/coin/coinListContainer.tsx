@@ -1,19 +1,19 @@
-import React,{Dispatch, useEffect, useState}  from "react";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import React,{useEffect}  from "react";
+import { View, ActivityIndicator } from "react-native";
 import { getCoinsList } from "../../api/coin";
 import { Coin } from "../../../types";
 import { CoinList } from "../../presentational/coin/coinList";
-import { useDispatch, useSelector } from 'react-redux'
-import { coinList, fetchCoinsData } from "../../../redux/reducers/coinReducer";
-import { AsyncThunkAction } from "@reduxjs/toolkit";
-import { useAppDispatch } from "../../../redux/reducers/store/store";
+import {useSelector } from 'react-redux'
+import { selectCoinList, fetchCoinsDataThunk,fetchCoinsAction } from "../../../redux/reducers/coinReducer";
+import { useAppDispatch } from "../../../redux/store/store";
 
 export const CoinListContainer = () :JSX.Element =>{
-const {coins, loading} = useSelector(coinList);
 const dispatch = useAppDispatch();
+const {data, loading} = useSelector(selectCoinList);
 
 useEffect(() =>{
-   dispatch(fetchCoinsData());
+   dispatch(fetchCoinsAction());  // dispatch via saga
+  // dispatch(fetchCoinsDataThunk()); //dispatch by thunk
 },[]);
 
 
@@ -21,7 +21,7 @@ useEffect(() =>{
         <View>
             {loading ? <ActivityIndicator style={{minHeight:100}} animating={loading} size="large" />
             :
-            <CoinList coinData={coins} />}
+            <CoinList coinData={data} />}
         </View>
     );
 };

@@ -8,7 +8,7 @@ import { NestedScreen } from "../container/nestedScreen";
 import { NestedScreen1 } from "../container/coin/nestedScreen1";
 import { Image } from "react-native";
 import { Provider } from "react-redux";
-import store from "../../redux/reducers/store/store";
+import store from "../../redux/store/store";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

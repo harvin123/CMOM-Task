@@ -5,7 +5,6 @@ import RenderHtml from 'react-native-render-html';
 import { Coin } from '../../../types';
 
 export const CoinDetails = ({coinData} : {coinData: Coin | null}) : JSX.Element => {
-    console.log("coinData",coinData);
     const { width } = useWindowDimensions();
    
     const mapUrls = (homePage :string[] | undefined) => {
