@@ -1,16 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList , ListRenderItem} from "react-native";
 import { numberWithCommas } from "../../utils/utils";
 import { useNavigation } from '@react-navigation/native';
+import  {Coin, coinListNaviationProps} from '../../../types';
+export const CoinList : React.FC<{coinData: Coin[] | null }> = ({coinData}) : JSX.Element=> {
+    const navigation = useNavigation<coinListNaviationProps>();
 
-export const CoinList = ({ coinData }) => {
-    const navigation = useNavigation();
+    const handleNavigation = (item : Coin) => {
+        navigation.navigate('CoinDetails',{id: item.id});
+    };  
 
-    const handleNavigation = (item) => {
-        navigation.navigate('Coin Details', { id: item.id })
-    };
-
-    const renderCoinItem = ({ item }) => {
+    const renderCoinItem : ListRenderItem<Coin> = ({item}) => {
         return (
             <TouchableOpacity onPress={()=>handleNavigation(item)} style={styles.container}>
                 <View  style={styles.firstRowContainer}>
@@ -37,7 +37,7 @@ export const CoinList = ({ coinData }) => {
 
     };
 
-const coinItemKeyExtractor = (item) => {return item.id};
+const coinItemKeyExtractor = (item : Coin) : string => {return item.id!};
 
     return (
         <FlatList

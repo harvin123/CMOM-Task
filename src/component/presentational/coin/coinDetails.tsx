@@ -2,11 +2,13 @@ import React from "react";
 import { ScrollView, StyleSheet, Text, View,useWindowDimensions , Linking } from "react-native";
 import { numberWithCommas } from "../../utils/utils";
 import RenderHtml from 'react-native-render-html';
+import { Coin } from '../../../types';
 
-export const CoinDetails = ({coinData}) => {
+export const CoinDetails = ({coinData} : {coinData: Coin | null}) : JSX.Element => {
+    console.log("coinData",coinData);
     const { width } = useWindowDimensions();
    
-    const mapUrls = (homePage) => {
+    const mapUrls = (homePage :string[] | undefined) => {
         return homePage?.map((url,index) => {
             return url !== '' ?
                 <Text key={index} style={{ color: 'blue' }} onPress={() => { Linking.openURL(url) }}>
@@ -28,24 +30,24 @@ export const CoinDetails = ({coinData}) => {
             </View>
             <View style={styles.subContainer}>
             <Text style={styles.label}>{'Hashing Algorithm'}</Text>
-            <Text>{coinData?.hashingAlgo || '--'}</Text>
+            <Text>{coinData?.hashing_algorithm || '--'}</Text>
             </View>
             <View style={styles.subContainer}>
             <Text style={styles.label}>{'Description'}</Text>
                 {coinData?.description ? <RenderHtml
                     contentWidth={width}
                     source={{
-                        html: coinData?.description
+                        html: coinData?.description?.en
                     }}
                 /> : null}
             </View>
             <View style={styles.subContainer}>
             <Text style={styles.label}>{'Market Cap(Euro)'}</Text>
-            <Text style={{fontWeight:'700'}}>{'\u20AC'}{numberWithCommas(coinData?.marketCapEuro)|| '--'}</Text>
+            <Text style={{fontWeight:'700'}}>{'\u20AC'}{numberWithCommas(coinData?.market_data?.market_cap?.eur)|| '--'}</Text>
             </View>
             <View style={styles.subContainer}>
             <Text style={styles.label}>{'Home Page'}</Text>
-            {mapUrls(coinData?.homePage)}
+            {mapUrls(coinData?.links?.homepage)}
             </View>
             <View style={styles.subContainer}>
             <Text style={styles.label}>{'Genesis Date'}</Text>
