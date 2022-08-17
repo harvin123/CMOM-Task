@@ -27,7 +27,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { Provider } from 'react-redux';
 import { Navigation } from './src/component/navigation/navigation';
-import store from './src/redux/reducers/store/store';
+import store from './src/redux/store/store';
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 

@@ -25,9 +25,12 @@ export interface Coin {
     genesisDate?: string
 }
 
-export interface ListResponse<T>{
-    coins : T[],
-    coinDetails: T,
+export interface CoinListResponse<T>{
+    data : T[],
+    loading: boolean
+}
+export interface CoinDetailsResponse<T>{
+    data : T,
     loading: boolean
 }
 
